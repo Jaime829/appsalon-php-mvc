@@ -1,0 +1,25 @@
+@use 'base/variables' as v;
+@use 'sass:color'; // <--- Agrega esta línea
+@use 'base/mixins' as m;
+
+.acciones {
+    margin-top: v.$separacion;
+    @include m.tablet {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    a {
+        text-decoration: none;
+        color: v.$blanco;
+        display: block;
+        margin-bottom: calc(v.$separacion / 2);
+        text-align: center;
+
+        &:hover {
+            color: color.adjust(v.$blanco, $lightness: -10%);
+        }
+
+    }
+}
