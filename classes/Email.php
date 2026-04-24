@@ -30,8 +30,10 @@ class Email
         $mail->Username = $_ENV['EMAIL_USER'];
         $mail->Password = $_ENV['EMAIL_PASS'];
 
-        $mail->setFrom('cuentas@appsalon.com');
-        $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
+        $mail->SMTPSecure = 'tls';
+
+        $mail->setFrom($_ENV['EMAIL_FROM']);
+        $mail->addAddress($this->email, $this->nombre);
         $mail->Subject = 'Confirma tu cuenta';
 
         $mail->isHTML(true);
@@ -61,8 +63,10 @@ class Email
         $mail->Username = $_ENV['EMAIL_USER'];
         $mail->Password = $_ENV['EMAIL_PASS'];
 
-        $mail->setFrom('cuentas@appsalon.com');
-        $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
+        $mail->SMTPSecure = 'tls';
+
+        $mail->setFrom($_ENV['EMAIL_FROM']);
+        $mail->addAddress($this->email, $this->nombre);
         $mail->Subject = 'Restablece Tu Password';
 
         $mail->isHTML(true);
