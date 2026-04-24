@@ -30,8 +30,14 @@ jobs:
               "nginx": {
                 "fastcgi": "on",
                 "locations": [
-                  {"match": "/", "try_files": "$uri $uri/ /index.php$is_args$args"},
-                  {"match": "~ \\.[^\\/]+(?<!\\.php)$", "try_files": "$uri =404"}
+                  {
+                    "match": "/",
+                    "try_files": "$uri $uri/ /index.php$is_args$args"
+                  },
+                  {
+                    "match": "~ \\.php$",
+                    "fastcgi": "on"
+                  }
                 ]
               },
               "commands": [
@@ -50,6 +56,6 @@ jobs:
                 "echo \"EMAIL_FROM=${{ secrets.EMAIL_FROM }}\" >> includes/.env",
                 "echo \"\" >> includes/.env",
                 "echo \"APP_URL=https://${DOMAIN}\" >> includes/.env",
-                "composer install"
+                "composer install --no-dev"
               ]
             }
