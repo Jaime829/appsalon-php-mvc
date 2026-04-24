@@ -1,0 +1,35 @@
+name: Sync on DOM Cloud
+'on':
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v3
+        env:
+          webhook_url: https://my.domcloud.co/api/githubdeploy
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+          webhook_auth: ${{ secrets.WEBHOOK_AUTH }}
+          data: >-
+            {"features":[{"create":{"domain":"app-salon-php-mvc-jaime.mnz.dom.my.id","user":"app-salon-php-mvc-jaime","pass":"<redacted>","email":"vargasarenasjosejaime@gmail.com"}},"firewall","php
+            8.3","mysql","ssl","ssl always","ssl","ssl
+            always"],"source":"https://github.com/Jaime829/appsalon-php-mvc","root":"public_html/public","nginx":{"fastcgi":"on","locations":[{"match":"/","try_files":"$uri
+            $uri/ /index.php$is_args$args"},{"match":"~
+            \\.[^\\/]+(?<!\\.php)$","try_files":"$uri =404"}]},"commands":["echo
+            \"<?php phpinfo(15);\" > phpinfo.php","echo \"display_errors = On\"
+            > .user.ini","echo \"display_startup_errors = On\" >>
+            .user.ini","echo \"DB_HOST=localhost\" > includes/.env","echo
+            \"DB_USER=${USERNAME}\" >> includes/.env","echo
+            \"DB_PASS=${PASSWORD}\" >> includes/.env","echo
+            \"DB_NAME=${DATABASE}\" >> includes/.env","echo \"\" >>
+            includes/.env","echo \"EMAIL_HOST=tuserver\" >> includes/.env","echo
+            \"EMAIL_USER=user\" >> includes/.env","echo \"EMAIL_PASS=password\"
+            >> includes/.env","echo \"EMAIL_PORT=2525\" >> includes/.env","echo
+            \"EMAIL_FROM=your-email\" >> includes/.env","echo \"\" >>
+            includes/.env","echo \"APP_URL=https://${DOMAIN}\" >>
+            includes/.env","composer install"]}
