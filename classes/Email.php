@@ -20,7 +20,6 @@ class Email
 
     public function enviarConfirmacion()
     {
-
         //crear el objeto de email
         $mail = new PHPMailer();
         $mail->isSMTP();
@@ -53,7 +52,6 @@ class Email
 
         public function enviarInstruccion()
     {
-
         //crear el objeto de email
         $mail = new PHPMailer();
         $mail->isSMTP();
