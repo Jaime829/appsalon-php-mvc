@@ -30,14 +30,8 @@ jobs:
               "nginx": {
                 "fastcgi": "on",
                 "locations": [
-                  {
-                    "match": "/",
-                    "try_files": "$uri $uri/ /index.php$is_args$args"
-                  },
-                  {
-                    "match": "~ \\.php$",
-                    "fastcgi": "on"
-                  }
+                  { "match": "/", "try_files": "$uri $uri/ /index.php$is_args$args" },
+                  { "match": "~ \\.[^\\/]+(?<!\\.php)$", "try_files": "$uri =404" }
                 ]
               },
               "commands": [
@@ -48,14 +42,12 @@ jobs:
                 "echo \"DB_USER=${USERNAME}\" >> includes/.env",
                 "echo \"DB_PASS=${PASSWORD}\" >> includes/.env",
                 "echo \"DB_NAME=${DATABASE}\" >> includes/.env",
-                "echo \"\" >> includes/.env",
                 "echo \"EMAIL_HOST=${{ secrets.EMAIL_HOST }}\" >> includes/.env",
                 "echo \"EMAIL_USER=${{ secrets.EMAIL_USER }}\" >> includes/.env",
                 "echo \"EMAIL_PASS=${{ secrets.EMAIL_PASS }}\" >> includes/.env",
                 "echo \"EMAIL_PORT=${{ secrets.EMAIL_PORT }}\" >> includes/.env",
                 "echo \"EMAIL_FROM=${{ secrets.EMAIL_FROM }}\" >> includes/.env",
-                "echo \"\" >> includes/.env",
                 "echo \"APP_URL=https://${DOMAIN}\" >> includes/.env",
-                "composer install --no-dev"
+                "composer install"
               ]
             }
